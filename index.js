@@ -48,8 +48,7 @@ module.exports = function(headers) {
 		schema = protobuf(headers);
 		s.push(schema.encode(data));
 
-		if (s.emit('schema', headers, cb));
-		else cb();
+		s.emit('schema', headers, cb) || cb();
 	});
 
 	s.schema = headers;
