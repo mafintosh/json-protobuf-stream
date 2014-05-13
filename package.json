@@ -1,0 +1,31 @@
+{
+  "name": "json-protobuf-stream",
+  "version": "0.0.0",
+  "description": "encode json to protobuf",
+  "main": "index.js",
+  "dependencies": {
+    "protocol-buffers": "^0.3.0",
+    "through2": "^0.4.1"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/mafintosh/json-protobuf-stream"
+  },
+  "keywords": [
+    "json",
+    "protobuf",
+    "stream",
+    "protocol",
+    "buffers"
+  ],
+  "author": "",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/mafintosh/json-protobuf-stream/issues"
+  },
+  "homepage": "https://github.com/mafintosh/json-protobuf-stream"
+}
