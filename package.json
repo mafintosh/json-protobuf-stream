@@ -4,7 +4,7 @@
   "description": "encode json to protobuf",
   "main": "index.js",
   "dependencies": {
-    "protocol-buffers": "^0.3.0",
+    "protocol-buffers": "^0.4.1",
     "through2": "^0.4.1"
   },
   "devDependencies": {},
