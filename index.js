@@ -13,45 +13,20 @@ var getType = function(val) {
 module.exports = function(headers) {
 	if (!headers) headers = [];
 
-	var schema = protobuf(headers);
-	var index = {};
-
-	headers.forEach(function(header, i) {
-		index[header.name] = header.tag || i;
-	});
-
+	var schema = typeof headers.mergeFromObject === 'function' && typeof headers.encode === 'function' ? headers : protobuf(headers);
 	var s = through.obj({highWaterMark:16}, function(data, enc, cb) {
-		var keys = Object.keys(data);
-		var updated = false;
-
-		for (var i = 0; i < keys.length; i++) {
-			var key = keys[i];
-
-			if (data[key] === undefined || data[key] === null) continue;
-			if (index[key]) continue;
-
-			index[key] = {
-				name:key,
-				tag:headers.length,
-				type:getType(data[key])
-			};
-
-			headers.push(index[key]);
-			updated = true;
-		}
-
-		if (!updated) {
+		var status = schema.mergeFromObject(data);
+		if (status === -1) return cb(new Error('Schema mismatch'));
+		if (!status) {
 			s.push(schema.encode(data));
 			return cb();
 		}
 
-		schema = protobuf(headers);
 		s.push(schema.encode(data));
-
-		s.emit('schema', headers, cb) || cb();
+		s.emit('update', cb) || cb();
 	});
 
-	s.schema = headers;
+	s.schema = schema.toJSON();
 
 	return s;
 };
