@@ -11,8 +11,8 @@ var jsonProtobuf = require('json-protobuf-stream');
 
 var encoder = jsonProtobufStream();
 
-encoder.on('schema', function(schema, callback) {
-	console.log('schema has changed', schema);
+encoder.on('update', function(callback) {
+	console.log('schema has changed', encoder.schema.toJSON());
 	callback();
 });
 
